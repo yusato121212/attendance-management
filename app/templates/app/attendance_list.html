@@ -12,7 +12,7 @@
             </tr>
             {% for attendance in attendances %} 
                 <tr>
-                    <!-- 日付が今日なら出社・退社ボタン追加,背景色を黄色 -->
+                    <!-- 今日なら背景色を黄 -->
                     {% if attendance.date == today.date %}
                         <td bgcolor="#d3ffa8">{{attendance.date|date:"m/d (D)"}}</td>
                         <div class="recode-setting">
@@ -34,29 +34,74 @@
                             {% endif %}
                         </div>
                         <td bgcolor="#d3ffa8">{{attendance.note}}</td>
+                    <!-- 今日以外 -->
                     {% else %}
-                        <!-- 土曜なら青,日曜なら赤の背景色にする -->
+                        <!-- 土曜なら背景色を青 -->
                         {% if attendance.date|date:"D" == "土" %}
                             <td bgcolor="#cce5ff">{{attendance.date|date:"m/d (D)"}}</td>
                             <div class="recode-setting">
-                                <td class="text-center" bgcolor="#cce5ff">{{attendance.in_work|date:"H:i"}}</td>
-                                <td class="text-center" bgcolor="#cce5ff">{{attendance.out_work|date:"H:i"}}</td>
+                                {% if attendance.in_work == None %}
+                                    <form method="post" action="{% url 'add_in_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#cce5ff"><input type="submit" class="btn btn-default" value="出社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#cce5ff">{{attendance.in_work|date:"H:i"}}</td>
+                                {% endif %}
+                                {% if attendance.out_work == None %}
+                                    <form method="post" action="{% url 'add_out_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#cce5ff"><input type="submit" class="btn btn-default" value="退社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#cce5ff">{{attendance.out_work|date:"H:i"}}</td>
+                                {% endif %}
                             </div>
                             <td bgcolor="#cce5ff">{{attendance.note}}</td>
+                        <!-- 日曜なら背景色を赤 -->
                         {% elif attendance.date|date:"D" == "日" %}
                             <td bgcolor="#ffcccc">{{attendance.date|date:"m/d (D)"}}</td>
                             <div class="recode-setting">
-                                <td class="text-center" bgcolor="#ffcccc">{{attendance.in_work|date:"H:i"}}</td>
-                                <td class="text-center" bgcolor="#ffcccc">{{attendance.out_work|date:"H:i"}}</td>
+                                {% if attendance.in_work == None %}
+                                    <form method="post" action="{% url 'add_in_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#ffcccc"><input type="submit" class="btn btn-default" value="出社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#ffcccc">{{attendance.in_work|date:"H:i"}}</td>
+                                {% endif %}
+                                {% if attendance.out_work == None %}
+                                    <form method="post" action="{% url 'add_out_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#ffcccc"><input type="submit" class="btn btn-default" value="退社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#ffcccc">{{attendance.out_work|date:"H:i"}}</td>
+                                {% endif %}
                             </div>
                             <td bgcolor="#ffcccc">{{attendance.note}}</td>
+                        <!-- それ以外なら背景色を白 -->
                         {% else %}
-                            <td>{{attendance.date|date:"m/d (D)"}}</td>
+                            <td bgcolor="#ffffff">{{attendance.date|date:"m/d (D)"}}</td>
                             <div class="recode-setting">
-                                <td class="text-center">{{attendance.in_work|date:"H:i"}}</td>
-                                <td class="text-center">{{attendance.out_work|date:"H:i"}}</td>
+                                {% if attendance.in_work == None %}
+                                    <form method="post" action="{% url 'add_in_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#ffffff"><input type="submit" class="btn btn-default" value="出社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#ffffff">{{attendance.in_work|date:"H:i"}}</td>
+                                {% endif %}
+                                {% if attendance.out_work == None %}
+                                    <form method="post" action="{% url 'add_out_work' pk=attendance.pk %}">{% csrf_token %}
+                                        {{form.as_p}}
+                                        <td class="text-center" bgcolor="#ffffff"><input type="submit" class="btn btn-default" value="退社"/></td>
+                                    </form>
+                                {% else %}
+                                    <td class="text-center" bgcolor="#ffffff">{{attendance.out_work|date:"H:i"}}</td>
+                                {% endif %}
                             </div>
-                            <td>{{attendance.note}}</td>
+                            <td bgcolor="#ffffff">{{attendance.note}}</td>
                         {% endif %}
                     {% endif %}
                 </tr>
