@@ -1,0 +1,51 @@
+/* アプリ名 */
+.app-name{
+    font-size:12px;
+    color:white;
+    background-color:#303030;
+    padding:3px;
+}
+
+/* メニュー */
+.top-menu{
+    color:white;
+    width:20px;
+    float:right;
+}
+
+/* ページ設定 */
+.page-setting{
+    margin:10px;
+}
+
+/* ページタイトル */
+.page-title{
+    color:white;
+    font-weight:bold;
+    background-color: #a1a1a1;
+    padding:5px;
+}
+
+/* 月度 */
+.monthly{
+    font-weight:bold;
+    padding:5px 0px;
+}
+
+/* 列ヘッダー */
+.row-header{
+    font-size:12px;
+    background-color:whitesmoke;
+}
+
+/* レコード設定 */
+.recode-setting{
+    margin:auto;
+}
+
+/* ログイン画面 コンテナ */
+.container-fluid {
+    width:300px;
+    background-color:#f2f2f2;
+    margin-top:100px;
+}

@@ -1,0 +1,22 @@
+{% load static %}
+<html>
+    <head>
+        <title>出退勤管理アプリ</title>
+        <!-- bootstrap3 -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!-- 自作CSSファイル -->
+        <link rel="stylesheet" href="{% static 'css//app.css' %}">
+    </head>
+    <body>
+        <!-- メイン画面 -->
+        {% if user.is_authenticated %}
+            <div class="app-name">
+                出退勤管理アプリ
+                <a href="{% url 'logout' %}" class="top-menu"><span class="glyphicon glyphicon-log-out"></span></a> <!-- ログアウト -->
+            </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
